@@ -23,7 +23,7 @@ export default function DashboardMobileNavbar({ className }: { className?: strin
           </SheetTrigger>
           <SheetContent side={'left'} className="flex w-[400px] flex-col bg-white sm:w-[540px]">
             <SheetHeader>
-              <SheetTitle>PFMS</SheetTitle>
+              <SheetTitle>Expense Tracker</SheetTitle>
             </SheetHeader>
             <div className="mt-8 flex flex-col justify-between">
               <div className="flex flex-col gap-3">

@@ -28,7 +28,7 @@ export default function DashboardSideNav({ className }: { className?: string }) 
         }
       )}
     >
-      <h3>PFMS</h3>
+      <h3>Expense Tracker</h3>
       <div className="relative flex h-full flex-col justify-between">
         <button
           onClick={handleToggle}

@@ -12,7 +12,7 @@ const LandingPage = () => {
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
           <div className="flex items-center">
             {/* <Icon icon="cryptocurrency:usd" className="h-8 w-8 text-blue-600" /> */}
-            <span className="ml-2 text-xl font-bold">PFMS</span>
+            <span className="ml-2 text-xl font-bold">Expense Tracker</span>
           </div>
 
           {/* Mobile Menu */}
@@ -23,7 +23,7 @@ const LandingPage = () => {
               </SheetTrigger>
               <SheetContent side={'left'} className="flex w-[300px] flex-col bg-white">
                 <SheetHeader>
-                  <SheetTitle>PFMS</SheetTitle>
+                  <SheetTitle>Expense Tracker</SheetTitle>
                 </SheetHeader>
                 <div className="mt-8 flex flex-col gap-4">
                   <a href="#features" className="text-gray-600 hover:text-blue-600">
@@ -148,7 +148,7 @@ const LandingPage = () => {
             <div>
               <div className="mb-4 flex items-center">
                 {/* <Icon icon="cryptocurrency:usd" className="h-6 w-6" /> */}
-                <span className="ml-2 text-lg font-bold">PFMS</span>
+                <span className="ml-2 text-lg font-bold">Expense Tracker</span>
               </div>
               <p className="text-sm">Making personal finance management easy and accessible for everyone.</p>
             </div>
@@ -209,7 +209,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="mt-12 border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; {new Date().getFullYear()} PFMS. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Expense Tracker. All rights reserved.</p>
           </div>
         </div>
       </footer>

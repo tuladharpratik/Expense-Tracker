@@ -7,7 +7,7 @@ export default function page() {
     <div className="">
       <div>
         <Typography element={'h2'} variant={'h2'} className="text-center">
-          Welcome to PFMS
+          Welcome to Expense Tracker
         </Typography>
         <Typography className="mt-1 text-center text-neutral-300">
           {' '}

@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <nav className="py-4 text-xl font-semibold tracking-wider shadow-md">
         <div className="container">
           <Link href="/" className="ml-2 text-xl font-bold">
-            PFMS
+          Expense Tracker
           </Link>
         </div>
       </nav>
