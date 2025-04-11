@@ -1,0 +1,148 @@
+enum BudgetType {
+  NEEDS
+  WANTS
+  SAVINGS
+}
+
+enum AccountType {
+    USER
+    ADMIN
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum TransactionType {
+    INCOME
+    EXPENSE
+}
+
+
+// Add this enum for different budget allocation types
+enum BudgetAllocationStrategy {
+    FIFTY_THIRTY_TWENTY    // 50/30/20 rule
+    CUSTOM                 // User's custom allocation
+}
+
+// Data source using local SQLite
+datasource db {
+    provider = 'postgresql'
+    url      = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
+}
+
+plugin hooks {
+  provider = '@zenstackhq/tanstack-query'
+  target = 'react'
+  output = 'src/lib/hooks'
+}
+
+// Prisma client generator
+generator client {
+    provider = "prisma-client-js"
+}
+
+// User model
+model User {
+    id         String  @id @default(cuid())
+    email      String  @unique @email @length(6, 32)
+    password   String  @password @omit
+    username   String  @unique
+    accountType AccountType @default(USER)
+    createdAt  DateTime @default(now())
+
+    transactions  Transaction[]
+    budgetPreference UserBudgetPreference?
+    monthlyBudgets MonthlyIncomeBudget[]
+    savingGoals   SavingGoal[]
+
+
+    @@allow('create,read', true)
+    @@allow('all', auth() == this)
+    @@allow('delete', auth().accountType == ADMIN)
+}
+
+model Transaction {
+    id           String         @id @default(cuid())
+    user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId       String
+    amount       Float          
+    type         TransactionType
+    category     Category?      @relation(fields: [categoryId], references: [id])
+    categoryId   String?
+    description  String?
+    source       String?        // For income sources
+    createdAt    DateTime       @default(now())
+    date         DateTime       @default(now())
+    
+    savingGoal   SavingGoal?   @relation(fields: [savingGoalId], references: [id])
+    savingGoalId String?
+
+    @@allow('all', auth().id == this.userId)
+}
+
+// Category model
+model Category {
+  id            String         @id @default(cuid())
+  name          String      @unique
+  budgetType    BudgetType  // New field to categorize as NEEDS, WANTS, or SAVINGS
+  description   String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt() @default(now())
+  transactions  Transaction[]
+  savingGoals   SavingGoal[]
+
+  @@allow('create,update,delete', auth().accountType == ADMIN)
+  @@allow('read', true)
+}
+
+
+model UserBudgetPreference {
+    id              String    @id @default(cuid())
+    user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId          String    @unique  // One preference per user
+    strategy        BudgetAllocationStrategy @default(FIFTY_THIRTY_TWENTY)
+    needsPercentage Float     @default(50)   // Default to 50/30/20 rule
+    wantsPercentage Float     @default(30)
+    savingsPercentage Float   @default(20)
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+
+    @@allow('all', auth().id == this.userId)
+}
+
+model MonthlyIncomeBudget {
+    id             String    @id @default(cuid())
+    user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId         String
+    monthYear      DateTime
+    totalIncome    Float
+    needsBudget    Float    
+    wantsBudget    Float    
+    savingsBudget  Float    
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+
+    @@allow('all', auth().id == this.userId)
+    @@unique([userId, monthYear])
+}
+
+model SavingGoal {
+    id          String      @id @default(cuid())
+    user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId      String
+    name        String
+    targetAmount Float
+    currentAmount Float     @default(0)
+    deadline    DateTime?
+    category    Category    @relation(fields: [categoryId], references: [id])
+    categoryId  String
+    note        String?
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+    transactions Transaction[]
+
+    @@allow('all', auth().id == this.userId)
+}

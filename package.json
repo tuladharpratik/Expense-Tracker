@@ -1,0 +1,83 @@
+{
+  "name": "personal-finance-management-system",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "husky",
+    "postinstall": "npx zenstack generate"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.6.0",
+    "@prisma/client": "^5.20.0",
+    "@radix-ui/react-avatar": "^1.1.2",
+    "@radix-ui/react-checkbox": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-dropdown-menu": "^2.1.2",
+    "@radix-ui/react-popover": "^1.1.2",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-radio-group": "^1.2.1",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@tanstack/react-query": "^5.59.0",
+    "@tanstack/react-query-devtools": "^5.59.0",
+    "@tanstack/react-table": "^8.20.5",
+    "@types/bcryptjs": "^2.4.6",
+    "@zenstackhq/runtime": "2.6.2",
+    "@zenstackhq/server": "^2.6.2",
+    "bcrypt": "^5.1.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
+    "date-fns": "^4.1.0",
+    "husky": "^9.1.6",
+    "next": "14.2.13",
+    "next-auth": "^4.24.8",
+    "react": "^18",
+    "react-day-picker": "^9.2.0",
+    "react-dom": "^18",
+    "recharts": "^2.13.0",
+    "resend": "^4.1.1",
+    "sharp": "^0.33.5",
+    "sonner": "^1.5.0",
+    "swagger-ui-react": "^5.18.2",
+    "tailwind-merge": "^2.5.3",
+    "tailwindcss-animate": "^1.0.7",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "vaul": "^1.0.0"
+  },
+  "devDependencies": {
+    "@iconify/react": "^5.0.2",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^22.7.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@zenstackhq/tanstack-query": "^2.6.2",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.13",
+    "lint-staged": "^15.2.10",
+    "postcss": "^8",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "prisma": "^5.20.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.6.3",
+    "zenstack": "2.11.6"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --max-warnings=0",
+      "prettier --write"
+    ],
+    "**/*.{html,json,css,scss,md,mdx}": [
+      "prettier -w"
+    ]
+  }
+}
